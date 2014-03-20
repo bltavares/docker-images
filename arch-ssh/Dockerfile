@@ -1,4 +1,4 @@
-FROM base/arch
+FROM jprjr/arch
 
 MAINTAINER Bruno Tavares <@bltavares>
 

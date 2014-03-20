@@ -3,7 +3,7 @@ FROM base/arch
 MAINTAINER Bruno Tavares <@bltavares>
 
 RUN pacman -Sy --noconfirm
-RUN pacman -S  --noconfirm openssh which tar
+RUN pacman -S  --noconfirm openssh which tar curl
 RUN mkdir -p /var/run/sshd && \
     echo "root:root" | chpasswd
 RUN /usr/bin/ssh-keygen -A

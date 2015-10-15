@@ -17,4 +17,4 @@ ADD bitlbee.conf /etc/bitlbee/bitlbee.conf
 VOLUME "/bitlbee"
 EXPOSE 6667
 
-CMD ["bitlbee", "-n", "-v", "-d", "/bitlbee"]
+CMD "chown -R bitlbee:bitlbee /bitlbee && bitlbee -n -v -d /bitlbee"

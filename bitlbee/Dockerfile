@@ -13,8 +13,9 @@ RUN echo "deb http://code.bitlbee.org/debian/devel/jessie/amd64/ ./" > /etc/apt/
     apt-get install -y bitlbee bitlbee-facebook bitlbee-plugin-otr ca-certificates
 
 ADD bitlbee.conf /etc/bitlbee/bitlbee.conf
+ADD start.sh /home/bitlbee/start.sh
 
 VOLUME "/bitlbee"
 EXPOSE 6667
 ENV BITLBEE_DEBUG=1
-CMD "chown -R bitlbee:bitlbee /bitlbee && bitlbee -n -v -d /bitlbee"
+CMD ["/home/bitlbee/start.sh"]

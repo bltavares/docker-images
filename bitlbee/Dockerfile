@@ -10,7 +10,7 @@ RUN echo "deb http://code.bitlbee.org/debian/devel/jessie/amd64/ ./" > /etc/apt/
     echo "deb http://download.opensuse.org/repositories/home:/jgeboski/Debian_8.0 ./" > /etc/apt/sources.list.d/jgeboski.list && \
     apt-key add /bitlbee-facebook.gpg && \
     apt-get update -y && \
-    apt-get install -y bitlbee bitlbee-facebook bitlbee-plugin-otr
+    apt-get install -y bitlbee bitlbee-facebook bitlbee-plugin-otr ca-certificates
 
 ADD bitlbee.conf /etc/bitlbee/bitlbee.conf
 

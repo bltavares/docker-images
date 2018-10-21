@@ -3,8 +3,7 @@ FROM debian:stretch as builder
 ## Supports x86_64, x86, arm, and arm64
 
 RUN apt-get update && apt-get install -y curl gnupg
-RUN gpg --keyserver hkp://pgp.mit.edu:80 --recv-keys 0x1657198823e52a61  && \
-    gpg -a --export 0x1657198823e52a61 | apt-key add - && \
+RUN apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys 0x1657198823e52a61  && \
     echo "deb http://download.zerotier.com/debian/stretch stretch main" > /etc/apt/sources.list.d/zerotier.list
 RUN apt-get update && apt-get install -y zerotier-one=1.2.12
 

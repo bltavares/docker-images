@@ -1,0 +1,28 @@
+language: none
+
+runtime:
+  - nodePool: Arm32
+    build:
+      on_success:
+        - docker build -t bltavares/zerotier:arm32 zerotier
+        - docker push bltavares/zerotier:arm32
+  - nodePool: Arm64
+    build:
+      on_success:
+        - docker build -t bltavares/zerotier:arm64 zerotier
+        - docker push bltavares/zerotier:arm64
+  - nodePool: x86_64
+
+build:
+  ci:
+    - echo "Done"
+  on_success:
+    - docker build -t bltavares/zerotier:latest zerotier
+    - docker push bltavares/zerotier:latest
+  on_failure:
+    - echo "Tests failed :("
+
+integrations:
+  hub:
+    - integrationName: ship-docker
+      type: dockerRegistryLogin

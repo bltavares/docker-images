@@ -1,12 +1,12 @@
 language: none
 
 runtime:
-  - nodePool: Arm32
+  - nodePool: shippable_shared_aarch32
     build:
       on_success:
         - docker build -t bltavares/zerotier:arm32 zerotier
         - docker push bltavares/zerotier:arm32
-  - nodePool: Arm64
+  - nodePool: shippable_shared_aarch64
     build:
       on_success:
         - docker build -t bltavares/zerotier:arm64 zerotier

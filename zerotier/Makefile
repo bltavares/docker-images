@@ -1,6 +1,9 @@
+ZEROTIER_VERSION = "1.2.12"
+
 define build_image
   docker build . \
     --tag bltavares/zerotier:$(2) \
+	--build-arg ZEROTIER_VERSION=$(ZEROTIER_VERSION) \
 	--build-arg BUILDER_ARCH=$(1) \
 	--build-arg TARGET_ARCH=$(2)
 endef
@@ -20,6 +23,7 @@ armhf:
 armel:
 	docker build . \
 	  --tag bltavares/zerotier:arm32v5 \
+	  --build-arg ZEROTIER_VERSION=$(ZEROTIER_VERSION) \
 	  -f Dockerfile.armel
 
 ppc64le:

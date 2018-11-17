@@ -1,19 +1,18 @@
 ARG BUILDER_ARCH=amd64 
 ARG TARGET_ARCH=amd64
 
+## Supports x86_64, x86, armhf, arm64, ppc64le
 FROM ${BUILDER_ARCH}/debian:stretch as builder
-
-## Supports x86_64, x86, arm, and arm64
-
+ARG ZEROTIER_VERSION
 RUN apt-get update && apt-get install -y curl gnupg
 RUN apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys 0x1657198823e52a61  && \
     echo "deb http://download.zerotier.com/debian/stretch stretch main" > /etc/apt/sources.list.d/zerotier.list
-RUN apt-get update && apt-get install -y zerotier-one=1.2.12
+RUN apt-get update && apt-get install -y zerotier-one=${ZEROTIER_VERSION}
 
 FROM ${TARGET_ARCH}/alpine:latest
 MAINTAINER Adam Ierymenko <adam.ierymenko@zerotier.com>
 
-LABEL version="1.2.12"
+LABEL version="${ZEROTIER_VERSION}"
 LABEL description="Containerized ZeroTier One for use on CoreOS or other Docker-only Linux hosts."
 
 # Uncomment to build in container

@@ -5,7 +5,12 @@ ARG TARGET_ARCH=amd64
 FROM ${BUILDER_ARCH}/debian:stretch as builder
 ARG ZEROTIER_VERSION
 RUN apt-get update && apt-get install -y curl gnupg
-RUN apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys 0x1657198823e52a61  && \
+RUN ( \
+    apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-keys 0x1657198823e52a61 || \
+    apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 0x1657198823e52a61 || \
+    apt-key adv --keyserver hkp://keyserver.pgp.com:80 --recv-keys 0x1657198823e52a61 \
+    apt-key adv --keyserver hkp://ipv4.pool.sks-keyservers.net --recv-keys 0x1657198823e52a61 \
+    ) && \
     echo "deb http://download.zerotier.com/debian/stretch stretch main" > /etc/apt/sources.list.d/zerotier.list
 RUN apt-get update && apt-get install -y zerotier-one=${ZEROTIER_VERSION}
 

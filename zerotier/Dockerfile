@@ -27,8 +27,10 @@ RUN apk add --update libgcc libstdc++
 
 RUN mkdir -p /var/lib/zerotier-one
 
-COPY --from=builder /var/lib/zerotier-one/zerotier-cli /usr/sbin/zerotier-cli
-COPY --from=builder /var/lib/zerotier-one/zerotier-idtool /usr/sbin/zerotier-idtool
-COPY --from=builder /usr/sbin/zerotier-one /usr/sbin/zerotier-one
+COPY --from=builder \
+    /var/lib/zerotier-one/zerotier-cli \
+    /var/lib/zerotier-one/zerotier-idtool \
+    /usr/sbin/zerotier-one \
+    /usr/sbin/
 
 ENTRYPOINT ["/usr/sbin/zerotier-one"]

@@ -7,4 +7,5 @@ before_install:
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
     
 script:
+  - docker run --rm -t multiarch/ubuntu-debootstrap:armhf-bionic uname -a
   - cd zerotier && make all 

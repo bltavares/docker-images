@@ -33,4 +33,4 @@ COPY --from=builder \
     /usr/sbin/zerotier-one \
     /usr/sbin/
 
-ENTRYPOINT ["/usr/sbin/zerotier-one"]
+CMD ["/usr/sbin/zerotier-one"]

@@ -23,7 +23,7 @@ LABEL description="Containerized ZeroTier One for use on CoreOS or other Docker-
 # Uncomment to build in container
 #RUN apk add --update alpine-sdk linux-headers
 
-RUN apk add --update libgcc libstdc++
+RUN apk add --no-cache libgcc libstdc++
 
 RUN mkdir -p /var/lib/zerotier-one
 

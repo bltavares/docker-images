@@ -1,0 +1,10 @@
+sudo: required
+services: docker
+language: bash
+
+before_install:
+  - docker pull multiarch/qemu-user-static:register
+  - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+    
+script:
+  - cd zerotier && make armhf 

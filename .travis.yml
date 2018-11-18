@@ -3,10 +3,9 @@ services: docker
 language: bash
 
 before_install:
-  - sudo apt-get update && sudo apt-get install -y qemu-user-static binfmt-support
-  - docker pull multiarch/qemu-user-static:register
-  - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+  - sudo apt-get update && sudo apt-get install -y qemu-user-static
     
 script:
+  - set -e
   - docker run --rm -t arm32v6/alpine uname -a
   - cd zerotier && make all 

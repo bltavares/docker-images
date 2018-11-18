@@ -3,6 +3,7 @@ services: docker
 language: bash
 
 before_install:
+  - apt-get update && apt-get install -y qemu-user-static binfmt-support
   - docker pull multiarch/qemu-user-static:register
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
     

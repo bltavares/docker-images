@@ -4,6 +4,11 @@ language: bash
 
 before_install:
   - sudo apt-get update && sudo apt-get install -y qemu-user-static
+  - |
+    git clone https://github.com/computermouth/qemu-static-conf.git && \
+    sudo mkdir -p /lib/binfmt.d && \
+    sudo cp qemu-static-conf/*.conf /lib/binfmt.d/ && \
+    sudo systemctl restart systemd-binfmt.service
     
 script:
   - set -e

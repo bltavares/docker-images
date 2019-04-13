@@ -4,7 +4,7 @@ ARG TARGET_ARCH=amd64
 ## Supports x86_64, x86, armhf, armel, arm64, ppc64le
 FROM ${BUILDER_ARCH}/alpine:3.9 as builder
 ARG TARGET_ARCH=amd64
-ARG NOMAD_VERSION="0.8.7"
+ARG NOMAD_VERSION="0.9.0"
 ARG BUILD_DATE
 
 COPY install.sh /install.sh
@@ -25,5 +25,5 @@ LABEL version="${NOMAD_VERSION}" \
 VOLUME /opt/nomad
 COPY --from=builder /usr/local/bin/nomad /usr/local/bin/nomad
 COPY entrypoint.sh /entrypoint.sh
-
+RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]

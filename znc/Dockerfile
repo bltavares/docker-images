@@ -1,8 +1,8 @@
-FROM alpine:3.2
+FROM alpine:3.10
 
-MAINTAINER Bruno Tavares <@bltavares>
-
-RUN apk add --update znc openssl-dev ca-certificates && rm -rf /var/cache/apk/*
+RUN apk add --no-cache znc openssl-dev ca-certificates
 
 USER znc
 CMD ["znc", "--foreground", "--datadir", "/znc"]
+
+EXPOSE 6697

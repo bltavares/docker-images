@@ -1,4 +1,4 @@
-ZEROTIER_VERSION = 1.2.12
+ZEROTIER_VERSION = 1.4.0
 CACHE_BUST = $(shell date -u +"%Y-%m-%dT00:00:00Z")
 
 define build_image

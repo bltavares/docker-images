@@ -1,0 +1,29 @@
+site_name: mkdocs
+site_description: Documentation
+theme:
+  name: "material"
+markdown_extensions:
+  - sane_lists
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+  - pymdownx.magiclink
+  - pymdownx.details
+  - pymdownx.critic
+  - pymdownx.mark
+  - plantuml_markdown
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_div_format
+  - toc:
+      permalink: "#"
+      baselevel: 3
+
+extra_javascript:
+  - https://unpkg.com/mermaid@8.4/dist/mermaid.min.js
+
+plugins:
+  - search
+  - mkdocs-jupyter
+  - git-revision-date-localized

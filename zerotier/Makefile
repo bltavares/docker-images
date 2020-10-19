@@ -1,4 +1,4 @@
-ZEROTIER_VERSION = 1.4.0
+ZEROTIER_VERSION = 1.4.6
 CACHE_BUST = $(shell date -u +"%Y-%m-%dT00:00:00Z")
 
 define build_image
@@ -70,15 +70,15 @@ manifest:
 	 docker manifest annotate bltavares/zerotier:$(ZEROTIER_VERSION) \
 	  bltavares/zerotier:$(ZEROTIER_VERSION)-arm32v5 --os linux \
 	  --arch arm --variant v5
-	
+
 	docker manifest annotate bltavares/zerotier:$(ZEROTIER_VERSION) \
 	  bltavares/zerotier:$(ZEROTIER_VERSION)-arm32v6 --os linux \
 	  --arch arm --variant v6
-	
+
 	docker manifest annotate bltavares/zerotier:$(ZEROTIER_VERSION) \
 	  bltavares/zerotier:$(ZEROTIER_VERSION)-arm64v8 --os linux \
 	  --arch arm64
-	
+
 	docker manifest annotate bltavares/zerotier:$(ZEROTIER_VERSION) \
 	  bltavares/zerotier:$(ZEROTIER_VERSION)-ppc64le --os linux \
 	  --arch ppc64le
@@ -105,15 +105,15 @@ manifest:
 	 docker manifest annotate bltavares/zerotier:latest \
 	  bltavares/zerotier:arm32v5 --os linux \
 	  --arch arm --variant v5
-	
+
 	docker manifest annotate bltavares/zerotier:latest \
 	  bltavares/zerotier:arm32v6 --os linux \
 	  --arch arm --variant v6
-	
+
 	docker manifest annotate bltavares/zerotier:latest \
 	  bltavares/zerotier:arm64v8 --os linux \
 	  --arch arm64
-	
+
 	docker manifest annotate bltavares/zerotier:latest \
 	  bltavares/zerotier:ppc64le --os linux \
 	  --arch ppc64le

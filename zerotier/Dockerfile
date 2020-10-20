@@ -1,7 +1,7 @@
-ARG BUILDER_ARCH=amd64 
+ARG BUILDER_ARCH=amd64
 ARG TARGET_ARCH=amd64
 
-## Supports x86_64, x86, armhf, arm64, ppc64le
+## Supports x86_64, x86, armhf, arm64, ppc64le, armle
 FROM ${BUILDER_ARCH}/debian:stretch as builder
 ARG ZEROTIER_VERSION
 RUN apt-get update && apt-get install -y curl gnupg
@@ -14,7 +14,7 @@ RUN ( \
     echo "deb http://download.zerotier.com/debian/stretch stretch main" > /etc/apt/sources.list.d/zerotier.list
 RUN apt-get update && apt-get install -y zerotier-one=${ZEROTIER_VERSION}
 
-FROM ${TARGET_ARCH}/alpine:latest
+FROM ${TARGET_ARCH}/debian:stable-slim
 ARG ZEROTIER_VERSION
 ARG BUILD_DATE
 LABEL version="${ZEROTIER_VERSION}" \
@@ -32,8 +32,6 @@ LABEL version="${ZEROTIER_VERSION}" \
     -v /var/lib/zerotier-one:/var/lib/zerotier-one \
     -n zerotier-one \
     -d bltavares/zerotier"
-
-RUN apk add --no-cache libgcc libstdc++
 
 RUN mkdir -p /var/lib/zerotier-one
 

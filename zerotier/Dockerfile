@@ -29,6 +29,7 @@ LABEL version="${ZEROTIER_VERSION}" \
     --net=host \
     --cap-add=NET_ADMIN \
     --cap-add=SYS_ADMIN \
+    --cap-add=CAP_SYS_RAWIO \
     -v /var/lib/zerotier-one:/var/lib/zerotier-one \
     -n zerotier-one \
     -d bltavares/zerotier"

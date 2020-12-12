@@ -5,4 +5,5 @@ RUN apt-get update && apt-get install -y \
     clang \
     libclang-dev \
     libc6-dev-i386 \
+    libjson-c-dev \
     && rm -rf /var/lib/apt/lists/*

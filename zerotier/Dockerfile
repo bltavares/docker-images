@@ -2,7 +2,7 @@ ARG BUILDER_ARCH=amd64
 ARG TARGET_ARCH=amd64
 
 ## Supports x86_64, x86, armhf, arm64, ppc64le, armle
-FROM ${BUILDER_ARCH}/debian:stretch as builder
+FROM ${BUILDER_ARCH}/debian:buster as builder
 ARG ZEROTIER_VERSION
 RUN apt-get update && apt-get install -y curl gnupg
 RUN ( \
@@ -11,7 +11,7 @@ RUN ( \
     apt-key adv --batch --keyserver hkp://keyserver.pgp.com:80 --recv-keys 0x1657198823e52a61 || \
     apt-key adv --batch --keyserver hkp://ipv4.pool.sks-keyservers.net --recv-keys 0x1657198823e52a61 \
     ) && \
-    echo "deb http://download.zerotier.com/debian/stretch stretch main" > /etc/apt/sources.list.d/zerotier.list
+    echo "deb http://download.zerotier.com/debian/buster buster main" > /etc/apt/sources.list.d/zerotier.list
 RUN apt-get update && apt-get install -y zerotier-one=${ZEROTIER_VERSION}
 
 FROM ${TARGET_ARCH}/debian:stable-slim
@@ -29,7 +29,6 @@ LABEL version="${ZEROTIER_VERSION}" \
     --net=host \
     --cap-add=NET_ADMIN \
     --cap-add=SYS_ADMIN \
-    --cap-add=CAP_SYS_RAWIO \
     -v /var/lib/zerotier-one:/var/lib/zerotier-one \
     -n zerotier-one \
     -d bltavares/zerotier"

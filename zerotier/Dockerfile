@@ -6,10 +6,9 @@ FROM ${BUILDER_ARCH}/debian:bookworm as builder
 ARG ZEROTIER_VERSION
 RUN apt-get update && apt-get install -y curl gnupg
 RUN ( \
-    apt-key adv --batch --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-keys 0x1657198823e52a61 || \
-    apt-key adv --batch --keyserver hkp://pgp.mit.edu:80 --recv-keys 0x1657198823e52a61 || \
-    apt-key adv --batch --keyserver hkp://keyserver.pgp.com:80 --recv-keys 0x1657198823e52a61 || \
-    apt-key adv --batch --keyserver hkp://ipv4.pool.sks-keyservers.net --recv-keys 0x1657198823e52a61 \
+    apt-key adv --batch --keyserver hkp://keyserver.ubuntu.com --recv-keys 0x1657198823e52a61 || \
+    apt-key adv --batch --keyserver hkps://keys.openpgp.org --recv-keys 0x1657198823e52a61 || \
+    curl -s https://download.zerotier.com/contact%40zerotier.com.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/zerotier.com.gpg > /dev/null \
     ) && \
     echo "deb https://download.zerotier.com/debian/bookworm bookworm main" > /etc/apt/sources.list.d/zerotier.list
 RUN apt-get update && apt-get install -y zerotier-one=${ZEROTIER_VERSION}

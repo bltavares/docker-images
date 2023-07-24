@@ -1,5 +1,9 @@
-ZEROTIER_VERSION = 1.10.2
-CACHE_BUST = $(shell date -u +"%Y-%m-%dT00:00:00Z")
+ZEROTIER_VERSION = 1.10.6
+ifeq ($(OS), Windows_NT)
+	CACHE_BUST = $(shell pwsh -c get-date -uformat +"%%Y-%%m-%%dT00:00:00Z")
+else
+	CACHE_BUST = $(shell date -u +"%Y-%m-%dT00:00:00Z")
+endif
 
 define build_image
   docker build . --pull \

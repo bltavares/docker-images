@@ -1,4 +1,4 @@
-ZEROTIER_VERSION = 1.10.6
+ZEROTIER_VERSION = 1.12.1
 ifeq ($(OS), Windows_NT)
 	CACHE_BUST = $(shell pwsh -c get-date -uformat +"%%Y-%%m-%%dT00:00:00Z")
 else
@@ -27,23 +27,18 @@ arm64:
 armhf:
 	$(call build_image,arm32v7)
 
-armel:
-	$(call build_image,arm32v5)
-
 ppc64le:
 	$(call build_image,ppc64le)
 
 publish:
 	docker push bltavares/zerotier:amd64
 	docker push bltavares/zerotier:i386
-	docker push bltavares/zerotier:arm32v5
 	docker push bltavares/zerotier:arm32v7
 	docker push bltavares/zerotier:arm64v8
 	docker push bltavares/zerotier:ppc64le
 
 	docker push bltavares/zerotier:$(ZEROTIER_VERSION)-amd64
 	docker push bltavares/zerotier:$(ZEROTIER_VERSION)-i386
-	docker push bltavares/zerotier:$(ZEROTIER_VERSION)-arm32v5
 	docker push bltavares/zerotier:$(ZEROTIER_VERSION)-arm32v7
 	docker push bltavares/zerotier:$(ZEROTIER_VERSION)-arm64v8
 	docker push bltavares/zerotier:$(ZEROTIER_VERSION)-ppc64le
@@ -53,7 +48,6 @@ manifest:
 	  bltavares/zerotier:$(ZEROTIER_VERSION) \
 	  bltavares/zerotier:$(ZEROTIER_VERSION)-amd64 \
 	  bltavares/zerotier:$(ZEROTIER_VERSION)-i386 \
-	  bltavares/zerotier:$(ZEROTIER_VERSION)-arm32v5 \
 	  bltavares/zerotier:$(ZEROTIER_VERSION)-arm32v7 \
 	  bltavares/zerotier:$(ZEROTIER_VERSION)-arm64v8 \
 	  bltavares/zerotier:$(ZEROTIER_VERSION)-ppc64le
@@ -65,10 +59,6 @@ manifest:
 	docker manifest annotate bltavares/zerotier:$(ZEROTIER_VERSION) \
 	  bltavares/zerotier:$(ZEROTIER_VERSION)-i386 --os linux \
 	  --arch 386
-
-	 docker manifest annotate bltavares/zerotier:$(ZEROTIER_VERSION) \
-	  bltavares/zerotier:$(ZEROTIER_VERSION)-arm32v5 --os linux \
-	  --arch arm --variant v5
 
 	docker manifest annotate bltavares/zerotier:$(ZEROTIER_VERSION) \
 	  bltavares/zerotier:$(ZEROTIER_VERSION)-arm32v7 --os linux \
@@ -88,7 +78,6 @@ manifest:
 	  bltavares/zerotier:latest \
 	  bltavares/zerotier:amd64 \
 	  bltavares/zerotier:i386 \
-	  bltavares/zerotier:arm32v5 \
 	  bltavares/zerotier:arm32v7 \
 	  bltavares/zerotier:arm64v8 \
 	  bltavares/zerotier:ppc64le
@@ -100,10 +89,6 @@ manifest:
 	docker manifest annotate bltavares/zerotier:latest \
 	  bltavares/zerotier:i386 --os linux \
 	  --arch 386
-
-	 docker manifest annotate bltavares/zerotier:latest \
-	  bltavares/zerotier:arm32v5 --os linux \
-	  --arch arm --variant v5
 
 	docker manifest annotate bltavares/zerotier:latest \
 	  bltavares/zerotier:arm32v7 --os linux \
@@ -119,6 +104,6 @@ manifest:
 
 	docker manifest push --purge bltavares/zerotier:latest
 
-all: amd64 x86 arm64 armel armhf ppc64le
+all: amd64 x86 arm64 armhf ppc64le
 
-.PHONY: all arm64 armel armhf amd64 x86 ppc64le publish manifest
+.PHONY: all arm64 armhf amd64 x86 ppc64le publish manifest

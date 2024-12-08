@@ -1,12 +1,12 @@
-FROM alpine:latest as downloader
+FROM alpine:latest AS downloader
 RUN apk add --no-cache curl
-RUN echo cache-busted-2021-07-09
-RUN curl -fLs -o /opt/geyser.jar https://ci.opencollab.dev//job/GeyserMC/job/Geyser/job/master/lastSuccessfulBuild/artifact/bootstrap/spigot/target/Geyser-Spigot.jar
-RUN curl -fLs -o /opt/floodgate.jar https://ci.opencollab.dev/job/GeyserMC/job/Floodgate/job/master/lastSuccessfulBuild/artifact/spigot/target/floodgate-spigot.jar
-RUN curl -fLs -o /opt/lanbroadcaster.jar https://gitlab.com/ruany/LANBroadcaster/uploads/dea1a2c04ea4d2463c432b0bf60321a6/LANBroadcaster.jar
+RUN echo cache-busted-2024-07-12
+RUN curl -fLs -o /opt/geyser.jar https://download.geysermc.org/v2/projects/geyser/versions/2.5.1/builds/726/downloads/spigot
+RUN curl -fLs -o /opt/floodgate.jar https://download.geysermc.org/v2/projects/floodgate/versions/2.2.3/builds/114/downloads/spigot
+RUN curl -fLs -o /opt/lanbroadcaster.jar https://cdn.modrinth.com/data/Y6nlCg58/versions/dqFAYmJE/LanBroadcasterPaper-2.3.1.jar
 
-FROM itzg/minecraft-server:java16
-ENV PAPER=1.17.1
+FROM itzg/minecraft-server:java21
+ENV PAPER=1.21.3
 ENV TYPE=PAPER
 COPY --from=downloader /opt/geyser.jar /plugins/geyser.jar
 COPY --from=downloader /opt/floodgate.jar /plugins/floodgate.jar

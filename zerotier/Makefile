@@ -1,4 +1,4 @@
-ZEROTIER_VERSION = 1.14.0
+ZEROTIER_VERSION = 1.16.0
 ifeq ($(OS), Windows_NT)
 	CACHE_BUST = $(shell pwsh -c get-date -uformat +"%%Y-%%m-%%dT00:00:00Z")
 else
@@ -12,7 +12,9 @@ define build_image
 		--build-arg ZEROTIER_VERSION=$(ZEROTIER_VERSION) \
 		--build-arg BUILD_DATE=$(CACHE_BUST) \
 		--build-arg BUILDER_ARCH=$(1) \
-		--build-arg TARGET_ARCH=$(1)
+		--build-arg TARGET_ARCH=$(1) \
+		--platform linux/$(if $(2),$(2),$(1))
+
 endef
 
 amd64:
@@ -22,10 +24,10 @@ x86:
 	$(call build_image,i386)
 
 arm64:
-	$(call build_image,arm64v8)
+	$(call build_image,arm64v8,arm64/v8)
 
 armhf:
-	$(call build_image,arm32v7)
+	$(call build_image,arm32v7,arm/v7)
 
 ppc64le:
 	$(call build_image,ppc64le)

@@ -1,4 +1,4 @@
-ZEROTIER_VERSION = 1.16.0
+ZEROTIER_VERSION = 1.16.0-2
 ifeq ($(OS), Windows_NT)
 	CACHE_BUST = $(shell pwsh -c get-date -uformat +"%%Y-%%m-%%dT00:00:00Z")
 else

@@ -7,6 +7,7 @@ endif
 
 define build_image
   docker build . --pull \
+		--provenance true \
     --tag bltavares/zerotier:$(1) \
 		--tag bltavares/zerotier:$(ZEROTIER_VERSION)-$(1) \
 		--build-arg ZEROTIER_VERSION=$(ZEROTIER_VERSION) \
@@ -46,65 +47,21 @@ publish:
 	docker push bltavares/zerotier:$(ZEROTIER_VERSION)-ppc64le
 
 manifest:
-	docker manifest create \
-	  bltavares/zerotier:$(ZEROTIER_VERSION) \
+	docker buildx imagetools create \
+	  --tag bltavares/zerotier:$(ZEROTIER_VERSION) \
 	  bltavares/zerotier:$(ZEROTIER_VERSION)-amd64 \
 	  bltavares/zerotier:$(ZEROTIER_VERSION)-i386 \
 	  bltavares/zerotier:$(ZEROTIER_VERSION)-arm32v7 \
 	  bltavares/zerotier:$(ZEROTIER_VERSION)-arm64v8 \
 	  bltavares/zerotier:$(ZEROTIER_VERSION)-ppc64le
 
-	docker manifest annotate bltavares/zerotier:$(ZEROTIER_VERSION) \
-	  bltavares/zerotier:$(ZEROTIER_VERSION)-amd64 --os linux \
-	  --arch amd64
-
-	docker manifest annotate bltavares/zerotier:$(ZEROTIER_VERSION) \
-	  bltavares/zerotier:$(ZEROTIER_VERSION)-i386 --os linux \
-	  --arch 386
-
-	docker manifest annotate bltavares/zerotier:$(ZEROTIER_VERSION) \
-	  bltavares/zerotier:$(ZEROTIER_VERSION)-arm32v7 --os linux \
-	  --arch arm --variant v7
-
-	docker manifest annotate bltavares/zerotier:$(ZEROTIER_VERSION) \
-	  bltavares/zerotier:$(ZEROTIER_VERSION)-arm64v8 --os linux \
-	  --arch arm64
-
-	docker manifest annotate bltavares/zerotier:$(ZEROTIER_VERSION) \
-	  bltavares/zerotier:$(ZEROTIER_VERSION)-ppc64le --os linux \
-	  --arch ppc64le
-
-	docker manifest push --purge bltavares/zerotier:$(ZEROTIER_VERSION)
-
-	docker manifest create \
-	  bltavares/zerotier:latest \
+	docker buildx imagetools create \
+	  --tag bltavares/zerotier:latest \
 	  bltavares/zerotier:amd64 \
 	  bltavares/zerotier:i386 \
 	  bltavares/zerotier:arm32v7 \
 	  bltavares/zerotier:arm64v8 \
 	  bltavares/zerotier:ppc64le
-
-	docker manifest annotate bltavares/zerotier:latest \
-	  bltavares/zerotier:amd64 --os linux \
-	  --arch amd64
-
-	docker manifest annotate bltavares/zerotier:latest \
-	  bltavares/zerotier:i386 --os linux \
-	  --arch 386
-
-	docker manifest annotate bltavares/zerotier:latest \
-	  bltavares/zerotier:arm32v7 --os linux \
-	  --arch arm --variant v7
-
-	docker manifest annotate bltavares/zerotier:latest \
-	  bltavares/zerotier:arm64v8 --os linux \
-	  --arch arm64
-
-	docker manifest annotate bltavares/zerotier:latest \
-	  bltavares/zerotier:ppc64le --os linux \
-	  --arch ppc64le
-
-	docker manifest push --purge bltavares/zerotier:latest
 
 all: amd64 x86 arm64 armhf ppc64le
 
